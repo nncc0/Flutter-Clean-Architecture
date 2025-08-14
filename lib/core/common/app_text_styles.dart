@@ -1,56 +1,57 @@
 // 📝 App Text Styles
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTextStyles {
-  static const TextStyle headline1 = TextStyle(
-    fontSize: 32,
+  static  TextStyle headline1 = TextStyle(
+    fontSize: 32.sp,
     fontWeight: FontWeight.bold,
   );
   
-  static const TextStyle headline2 = TextStyle(
-    fontSize: 28,
+  static  TextStyle headline2 = TextStyle(
+    fontSize: 28.sp,
     fontWeight: FontWeight.bold,
   );
   
-  static const TextStyle headline3 = TextStyle(
-    fontSize: 24,
+  static  TextStyle headline3 = TextStyle(
+    fontSize: 24.sp,
     fontWeight: FontWeight.bold,
   );
   
-  static const TextStyle headline4 = TextStyle(
-    fontSize: 20,
+  static  TextStyle headline4 = TextStyle(
+    fontSize: 20.sp,
     fontWeight: FontWeight.bold,
   );
   
-  static const TextStyle headline5 = TextStyle(
-    fontSize: 18,
+  static  TextStyle headline5 = TextStyle(
+    fontSize: 18.sp,
     fontWeight: FontWeight.bold,
   );
   
-  static const TextStyle headline6 = TextStyle(
-    fontSize: 16,
+  static  TextStyle headline6 = TextStyle(
+    fontSize: 16.sp,
     fontWeight: FontWeight.bold,
   );
   
-  static const TextStyle bodyText1 = TextStyle(
-    fontSize: 16,
+  static  TextStyle bodyText1 = TextStyle(
+    fontSize: 16.sp,
   );
   
-  static const TextStyle bodyText2 = TextStyle(
-    fontSize: 14,
+  static  TextStyle bodyText2 = TextStyle(
+    fontSize: 14.sp,
   );
   
-  static const TextStyle caption = TextStyle(
-    fontSize: 12,
+  static  TextStyle caption = TextStyle(
+    fontSize: 12.sp,
   );
   
-  static const TextStyle button = TextStyle(
-    fontSize: 16,
+  static  TextStyle button = TextStyle(
+    fontSize: 16.sp,
     fontWeight: FontWeight.bold,
   );
   
-  static const TextStyle overline = TextStyle(
-    fontSize: 10,
+  static  TextStyle overline = TextStyle(
+    fontSize: 10.sp,
     fontWeight: FontWeight.bold,
     letterSpacing: 1.5,
   );

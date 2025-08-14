@@ -3,13 +3,24 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService {
   late SharedPreferences _prefs;
+  bool _initialized = false;
   
   Future<void> init() async {
-    _prefs = await SharedPreferences.getInstance();
+    if (!_initialized) {
+      _prefs = await SharedPreferences.getInstance();
+      _initialized = true;
+    }
+  }
+
+  void _checkInitialized() {
+    if (!_initialized) {
+      throw StateError('StorageService must be initialized before use. Call init() first.');
+    }
   }
   
   // Generic methods
   Future<bool> set<T>(String key, T value) async {
+    _checkInitialized();
     switch (T) {
       case String:
         return await _prefs.setString(key, value as String);
@@ -27,6 +38,7 @@ class StorageService {
   }
   
   T? get<T>(String key) {
+    _checkInitialized();
     switch (T) {
       case String:
         return _prefs.getString(key) as T?;
