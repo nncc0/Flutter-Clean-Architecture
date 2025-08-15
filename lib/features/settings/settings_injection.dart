@@ -1,5 +1,4 @@
 // ⚙️ Settings Feature Injection
-import 'package:get_it/get_it.dart';
 import '../../core/services/locator_service.dart';
 import '../../core/theme/theme_cubit.dart';
 import '../../core/l10n/language_cubit.dart';

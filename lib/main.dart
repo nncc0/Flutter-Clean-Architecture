@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
 import 'app_router.dart';
 import 'core/services/locator_service.dart';
-import 'core/services/navigation_service.dart';
 import 'core/theme/theme_cubit.dart';
 import 'core/l10n/app_localizations.dart';
 import 'core/l10n/language_cubit.dart';
@@ -17,20 +15,16 @@ import 'core/utils/themes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  
-  
+
   await setupLocator();
   await initializeDependencies();
-  
-  
-  
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-  
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -47,12 +41,12 @@ class MyApp extends StatelessWidget {
             builder: (context, child) {
               return MaterialApp.router(
                 routerConfig: AppRouter.router,
+                debugShowCheckedModeBanner: false,
                 title: 'app',
-                                theme: AppThemes.lightTheme,
+                theme: AppThemes.lightTheme,
                 darkTheme: AppThemes.darkTheme,
                 themeMode: _getThemeMode(themeMode),
-                
-                                locale: context.watch<LanguageCubit>().state,
+                locale: context.watch<LanguageCubit>().state,
                 localizationsDelegates: const [
                   AppLocalizations.delegate,
                   GlobalMaterialLocalizations.delegate,
@@ -70,8 +64,8 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-  
-    ThemeMode _getThemeMode(AppTheme appTheme) {
+
+  ThemeMode _getThemeMode(AppTheme appTheme) {
     switch (appTheme) {
       case AppTheme.light:
         return ThemeMode.light;
@@ -81,5 +75,4 @@ class MyApp extends StatelessWidget {
         return ThemeMode.system;
     }
   }
-  
 }

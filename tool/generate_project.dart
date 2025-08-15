@@ -605,7 +605,7 @@ extension StringExtensions on String {
   
   bool get isValidEmail {
     final emailRegExp = RegExp(
-      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\$',
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}\$',
     );
     return emailRegExp.hasMatch(this);
   }
@@ -1404,7 +1404,7 @@ class AppLocalizations {
   String get networkError => _localizedStrings['network_error'] ?? 'Network error. Please check your connection.';
   String get serverError => _localizedStrings['server_error'] ?? 'Server error. Please try again later.';
   String get unauthorizedError => _localizedStrings['unauthorized_error'] ?? 'Unauthorized. Please login again.';
-  String get forbiddenError => _localizedStrings['forbidden_error'] ?? 'You don\'t have permission to access this resource.';
+  String get forbiddenError => _localizedStrings['forbidden_error'] ?? 'You don't have permission to access this resource.';
   String get notFoundError => _localizedStrings['not_found_error'] ?? 'Resource not found.';
   String get unknownError => _localizedStrings['unknown_error'] ?? 'An unknown error occurred.';
 }
@@ -3046,7 +3046,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                     SizedBox(height: 16.h),
                     Text(
-                      'Enter your email address and we\'ll send you a link to reset your password.',
+                      'Enter your email address and we'll send you a link to reset your password.',
                       style: TextStyle(fontSize: 16.sp),
                       textAlign: TextAlign.center,
                     ),
@@ -3101,7 +3101,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                     SizedBox(height: 16.h),
                     Text(
-                      'We\'ve sent a password reset link to your email address.',
+                      'We've sent a password reset link to your email address.',
                       style: TextStyle(fontSize: 16.sp),
                       textAlign: TextAlign.center,
                     ),
@@ -3877,7 +3877,7 @@ void _createFeatureFiles(String snakeCase, String pascalCase, String featureDisp
   // Entity
   final entityFile = File('lib/features/$snakeCase/domain/entities/${snakeCase}_entity.dart');
   entityFile.writeAsStringSync('''
-// 🎯 ${pascalCase} Entity
+// 🎯 $pascalCase Entity
 import 'package:equatable/equatable.dart';
 
 class ${pascalCase}Entity extends Equatable {
@@ -3904,7 +3904,7 @@ class ${pascalCase}Entity extends Equatable {
   // Model
   final modelFile = File('lib/features/$snakeCase/data/models/${snakeCase}_model.dart');
   modelFile.writeAsStringSync('''
-// 📊 ${pascalCase} Model
+// 📊 $pascalCase Model
 import '../../domain/entities/${snakeCase}_entity.dart';
 
 class ${pascalCase}Model extends ${pascalCase}Entity {
@@ -3958,17 +3958,17 @@ class ${pascalCase}Model extends ${pascalCase}Entity {
   // Repository
   final repositoryFile = File('lib/features/$snakeCase/domain/repositories/${snakeCase}_repository.dart');
   repositoryFile.writeAsStringSync('''
-// 📚 ${pascalCase} Repository
+// 📚 $pascalCase Repository
 import 'package:dartz/dartz.dart';
 import '../../../../core/errors/failures.dart';
 import '../entities/${snakeCase}_entity.dart';
 
 abstract class ${pascalCase}Repository {
   Future<Either<Failure, List<${pascalCase}Entity>>> get${pascalCase}s();
-  Future<Either<Failure, ${pascalCase}Entity>> get${pascalCase}(String id);
-  Future<Either<Failure, ${pascalCase}Entity>> create${pascalCase}(${pascalCase}Entity ${snakeCase});
-  Future<Either<Failure, ${pascalCase}Entity>> update${pascalCase}(${pascalCase}Entity ${snakeCase});
-  Future<Either<Failure, bool>> delete${pascalCase}(String id);
+  Future<Either<Failure, ${pascalCase}Entity>> get$pascalCase(String id);
+  Future<Either<Failure, ${pascalCase}Entity>> create$pascalCase(${pascalCase}Entity $snakeCase);
+  Future<Either<Failure, ${pascalCase}Entity>> update$pascalCase(${pascalCase}Entity $snakeCase);
+  Future<Either<Failure, bool>> delete$pascalCase(String id);
 }
 ''');
   print('📄 Created: lib/features/$snakeCase/domain/repositories/${snakeCase}_repository.dart');
@@ -3976,7 +3976,7 @@ abstract class ${pascalCase}Repository {
   // Repository Implementation
   final repositoryImplFile = File('lib/features/$snakeCase/data/repositories/${snakeCase}_repository_impl.dart');
   repositoryImplFile.writeAsStringSync('''
-// 🔧 ${pascalCase} Repository Implementation
+// 🔧 $pascalCase Repository Implementation
 import 'package:dartz/dartz.dart';
 import '../../../../core/errors/failures.dart';
 import '../../domain/entities/${snakeCase}_entity.dart';
@@ -4011,13 +4011,13 @@ class ${pascalCase}RepositoryImpl implements ${pascalCase}Repository {
   }
   
   @override
-  Future<Either<Failure, ${pascalCase}Entity>> get${pascalCase}(String id) async {
+  Future<Either<Failure, ${pascalCase}Entity>> get$pascalCase(String id) async {
     try {
       ${includeApi ? """
-      final ${snakeCase} = await remoteDataSource.get${pascalCase}(id);
-      return Right(${snakeCase}.toEntity());
+      final $snakeCase = await remoteDataSource.get$pascalCase(id);
+      return Right($snakeCase.toEntity());
       """ : """
-      // TODO: Implement get${pascalCase} logic
+      // TODO: Implement get$pascalCase logic
       throw UnimplementedError();
       """}
     } catch (e) {
@@ -4026,21 +4026,21 @@ class ${pascalCase}RepositoryImpl implements ${pascalCase}Repository {
   }
   
   @override
-  Future<Either<Failure, ${pascalCase}Entity>> create${pascalCase}(${pascalCase}Entity ${snakeCase}) async {
+  Future<Either<Failure, ${pascalCase}Entity>> create$pascalCase(${pascalCase}Entity $snakeCase) async {
     try {
       ${includeApi ? """
       final model = ${pascalCase}Model(
-        id: ${snakeCase}.id,
-        name: ${snakeCase}.name,
-        description: ${snakeCase}.description,
-        createdAt: ${snakeCase}.createdAt,
-        updatedAt: ${snakeCase}.updatedAt,
+        id: $snakeCase.id,
+        name: $snakeCase.name,
+        description: $snakeCase.description,
+        createdAt: $snakeCase.createdAt,
+        updatedAt: $snakeCase.updatedAt,
       );
       
-      final created${pascalCase} = await remoteDataSource.create${pascalCase}(model);
-      return Right(created${pascalCase}.toEntity());
+      final created$pascalCase = await remoteDataSource.create$pascalCase(model);
+      return Right(created$pascalCase.toEntity());
       """ : """
-      // TODO: Implement create${pascalCase} logic
+      // TODO: Implement create$pascalCase logic
       throw UnimplementedError();
       """}
     } catch (e) {
@@ -4049,21 +4049,21 @@ class ${pascalCase}RepositoryImpl implements ${pascalCase}Repository {
   }
   
   @override
-  Future<Either<Failure, ${pascalCase}Entity>> update${pascalCase}(${pascalCase}Entity ${snakeCase}) async {
+  Future<Either<Failure, ${pascalCase}Entity>> update$pascalCase(${pascalCase}Entity $snakeCase) async {
     try {
       ${includeApi ? """
       final model = ${pascalCase}Model(
-        id: ${snakeCase}.id,
-        name: ${snakeCase}.name,
-        description: ${snakeCase}.description,
-        createdAt: ${snakeCase}.createdAt,
-        updatedAt: ${snakeCase}.updatedAt,
+        id: $snakeCase.id,
+        name: $snakeCase.name,
+        description: $snakeCase.description,
+        createdAt: $snakeCase.createdAt,
+        updatedAt: $snakeCase.updatedAt,
       );
       
-      final updated${pascalCase} = await remoteDataSource.update${pascalCase}(model);
-      return Right(updated${pascalCase}.toEntity());
+      final updated$pascalCase = await remoteDataSource.update$pascalCase(model);
+      return Right(updated$pascalCase.toEntity());
       """ : """
-      // TODO: Implement update${pascalCase} logic
+      // TODO: Implement update$pascalCase logic
       throw UnimplementedError();
       """}
     } catch (e) {
@@ -4072,13 +4072,13 @@ class ${pascalCase}RepositoryImpl implements ${pascalCase}Repository {
   }
   
   @override
-  Future<Either<Failure, bool>> delete${pascalCase}(String id) async {
+  Future<Either<Failure, bool>> delete$pascalCase(String id) async {
     try {
       ${includeApi ? """
-      await remoteDataSource.delete${pascalCase}(id);
+      await remoteDataSource.delete$pascalCase(id);
       return const Right(true);
       """ : """
-      // TODO: Implement delete${pascalCase} logic
+      // TODO: Implement delete$pascalCase logic
       throw UnimplementedError();
       """}
     } catch (e) {
@@ -4093,17 +4093,17 @@ class ${pascalCase}RepositoryImpl implements ${pascalCase}Repository {
     // Remote Data Source
     final remoteDataSourceFile = File('lib/features/$snakeCase/data/datasources/${snakeCase}_remote_datasource.dart');
     remoteDataSourceFile.writeAsStringSync('''
-// 🌐 ${pascalCase} Remote Data Source
+// 🌐 $pascalCase Remote Data Source
 import '../../../../core/network/api_client.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../models/${snakeCase}_model.dart';
 
 abstract class ${pascalCase}RemoteDataSource {
   Future<List<${pascalCase}Model>> get${pascalCase}s();
-  Future<${pascalCase}Model> get${pascalCase}(String id);
-  Future<${pascalCase}Model> create${pascalCase}(${pascalCase}Model ${snakeCase});
-  Future<${pascalCase}Model> update${pascalCase}(${pascalCase}Model ${snakeCase});
-  Future<void> delete${pascalCase}(String id);
+  Future<${pascalCase}Model> get$pascalCase(String id);
+  Future<${pascalCase}Model> create$pascalCase(${pascalCase}Model $snakeCase);
+  Future<${pascalCase}Model> update$pascalCase(${pascalCase}Model $snakeCase);
+  Future<void> delete$pascalCase(String id);
 }
 
 class ${pascalCase}RemoteDataSourceImpl implements ${pascalCase}RemoteDataSource {
@@ -4120,34 +4120,34 @@ class ${pascalCase}RemoteDataSourceImpl implements ${pascalCase}RemoteDataSource
   }
   
   @override
-  Future<${pascalCase}Model> get${pascalCase}(String id) async {
+  Future<${pascalCase}Model> get$pascalCase(String id) async {
     final response = await apiClient.get('/${snakeCase}s/\$id');
     
     return ${pascalCase}Model.fromJson(response.data);
   }
   
   @override
-  Future<${pascalCase}Model> create${pascalCase}(${pascalCase}Model ${snakeCase}) async {
+  Future<${pascalCase}Model> create$pascalCase(${pascalCase}Model $snakeCase) async {
     final response = await apiClient.post(
       '/${snakeCase}s',
-      data: ${snakeCase}.toJson(),
+      data: $snakeCase.toJson(),
     );
     
     return ${pascalCase}Model.fromJson(response.data);
   }
   
   @override
-  Future<${pascalCase}Model> update${pascalCase}(${pascalCase}Model ${snakeCase}) async {
+  Future<${pascalCase}Model> update$pascalCase(${pascalCase}Model $snakeCase) async {
     final response = await apiClient.put(
-      '/${snakeCase}s/\${${snakeCase}.id}',
-      data: ${snakeCase}.toJson(),
+      '/${snakeCase}s/\${$snakeCase.id}',
+      data: $snakeCase.toJson(),
     );
     
     return ${pascalCase}Model.fromJson(response.data);
   }
   
   @override
-  Future<void> delete${pascalCase}(String id) async {
+  Future<void> delete$pascalCase(String id) async {
     await apiClient.delete('/${snakeCase}s/\$id');
   }
 }
@@ -4159,7 +4159,7 @@ class ${pascalCase}RemoteDataSourceImpl implements ${pascalCase}RemoteDataSource
     // Local Data Source
     final localDataSourceFile = File('lib/features/$snakeCase/data/datasources/${snakeCase}_local_datasource.dart');
     localDataSourceFile.writeAsStringSync('''
-// 💾 ${pascalCase} Local Data Source
+// 💾 $pascalCase Local Data Source
 import '../../../../core/services/storage_service.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../models/${snakeCase}_model.dart';
@@ -4167,9 +4167,9 @@ import '../models/${snakeCase}_model.dart';
 abstract class ${pascalCase}LocalDataSource {
   Future<List<${pascalCase}Model>> getCached${pascalCase}s();
   Future<void> cache${pascalCase}s(List<${pascalCase}Model> ${snakeCase}s);
-  Future<${pascalCase}Model?> getCached${pascalCase}(String id);
-  Future<void> cache${pascalCase}(${pascalCase}Model ${snakeCase});
-  Future<void> removeCached${pascalCase}(String id);
+  Future<${pascalCase}Model?> getCached$pascalCase(String id);
+  Future<void> cache$pascalCase(${pascalCase}Model $snakeCase);
+  Future<void> removeCached$pascalCase(String id);
   Future<void> clearCached${pascalCase}s();
 }
 
@@ -4202,7 +4202,7 @@ class ${pascalCase}LocalDataSourceImpl implements ${pascalCase}LocalDataSource {
   Future<void> cache${pascalCase}s(List<${pascalCase}Model> ${snakeCase}s) async {
     final result = await storageService.setStringList(
       '${snakeCase}s',
-      ${snakeCase}s.map((${snakeCase}) => ${snakeCase}.toJson().toString()).toList(),
+      ${snakeCase}s.map(($snakeCase) => $snakeCase.toJson().toString()).toList(),
     );
     
     if (!result) {
@@ -4211,7 +4211,7 @@ class ${pascalCase}LocalDataSourceImpl implements ${pascalCase}LocalDataSource {
   }
   
   @override
-  Future<${pascalCase}Model?> getCached${pascalCase}(String id) async {
+  Future<${pascalCase}Model?> getCached$pascalCase(String id) async {
     final ${snakeCase}Json = storageService.getString('${snakeCase}_\$id');
     if (${snakeCase}Json == null) return null;
     
@@ -4221,24 +4221,24 @@ class ${pascalCase}LocalDataSourceImpl implements ${pascalCase}LocalDataSource {
       );
       return ${pascalCase}Model.fromJson(${snakeCase}Map);
     } catch (e) {
-      throw CacheException('Failed to parse cached ${snakeCase}');
+      throw CacheException('Failed to parse cached $snakeCase');
     }
   }
   
   @override
-  Future<void> cache${pascalCase}(${pascalCase}Model ${snakeCase}) async {
+  Future<void> cache$pascalCase(${pascalCase}Model $snakeCase) async {
     final result = await storageService.setString(
-      '${snakeCase}_\${${snakeCase}.id}',
-      ${snakeCase}.toJson().toString(),
+      '${snakeCase}_\${$snakeCase.id}',
+      $snakeCase.toJson().toString(),
     );
     
     if (!result) {
-      throw CacheException('Failed to cache ${snakeCase}');
+      throw CacheException('Failed to cache $snakeCase');
     }
   }
   
   @override
-  Future<void> removeCached${pascalCase}(String id) async {
+  Future<void> removeCached$pascalCase(String id) async {
     await storageService.remove('${snakeCase}_\$id');
   }
   
@@ -4276,7 +4276,7 @@ class Get${pascalCase}sUseCase implements UseCase<List<${pascalCase}Entity>, NoP
   
   final pascalCaseUseCaseFile = File('lib/features/$snakeCase/domain/usecases/get_${snakeCase}_usecase.dart');
   pascalCaseUseCaseFile.writeAsStringSync('''
-// 🎯 Get ${pascalCase} Use Case
+// 🎯 Get $pascalCase Use Case
 import 'package:dartz/dartz.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases/usecase.dart';
@@ -4290,7 +4290,7 @@ class Get${pascalCase}UseCase implements UseCase<${pascalCase}Entity, String> {
   
   @override
   Future<Either<Failure, ${pascalCase}Entity>> call(String id) async {
-    return repository.get${pascalCase}(id);
+    return repository.get$pascalCase(id);
   }
 }
 ''');
@@ -4299,7 +4299,7 @@ class Get${pascalCase}UseCase implements UseCase<${pascalCase}Entity, String> {
   // Cubit
   final cubitFile = File('lib/features/$snakeCase/presentation/cubit/${snakeCase}_cubit.dart');
   cubitFile.writeAsStringSync('''
-// 🎯 ${pascalCase} Cubit
+// 🎯 $pascalCase Cubit
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import '../../domain/entities/${snakeCase}_entity.dart';
@@ -4311,11 +4311,11 @@ import '../../../../core/usecases/usecase.dart';
 part '${snakeCase}_state.dart';
 
 class ${pascalCase}Cubit extends Cubit<${pascalCase}State> {
-  final Get${pascalCase}UseCase get${pascalCase};
+  final Get${pascalCase}UseCase get$pascalCase;
   final Get${pascalCase}sUseCase get${pascalCase}s;
   
   ${pascalCase}Cubit({
-    required this.get${pascalCase},
+    required this.get$pascalCase,
     required this.get${pascalCase}s,
   }) : super(${pascalCase}Initial()) {
     load${pascalCase}s();
@@ -4332,14 +4332,14 @@ class ${pascalCase}Cubit extends Cubit<${pascalCase}State> {
     );
   }
   
-  Future<void> load${pascalCase}(String id) async {
+  Future<void> load$pascalCase(String id) async {
     emit(${pascalCase}Loading());
     
-    final result = await get${pascalCase}(id);
+    final result = await get$pascalCase(id);
     
     result.fold(
       (failure) => emit(${pascalCase}Error(failure.message)),
-      (${snakeCase}) => emit(${pascalCase}Loaded(${snakeCase})),
+      ($snakeCase) => emit(${pascalCase}Loaded($snakeCase)),
     );
   }
   
@@ -4353,7 +4353,7 @@ class ${pascalCase}Cubit extends Cubit<${pascalCase}State> {
   // Cubit State
   final cubitStateFile = File('lib/features/$snakeCase/presentation/cubit/${snakeCase}_state.dart');
   cubitStateFile.writeAsStringSync('''
-// 🎯 ${pascalCase} Cubit State
+// 🎯 $pascalCase Cubit State
 part of '${snakeCase}_cubit.dart';
 
 abstract class ${pascalCase}State {}
@@ -4394,7 +4394,7 @@ class ${pascalCase}Error extends ${pascalCase}State {
   // Page
   final pageFile = File('lib/features/$snakeCase/presentation/pages/${snakeCase}_page.dart');
   pageFile.writeAsStringSync('''
-// 📱 ${pascalCase} Page
+// 📱 $pascalCase Page
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -4419,7 +4419,7 @@ class ${pascalCase}Page extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ${pascalCase}Cubit(
-        get${pascalCase}: getIt<Get${pascalCase}UseCase>(),
+        get$pascalCase: getIt<Get${pascalCase}UseCase>(),
         get${pascalCase}s: getIt<Get${pascalCase}sUseCase>(),
       ),
       child: Scaffold(
@@ -4475,14 +4475,14 @@ class ${pascalCase}Page extends StatelessWidget {
         padding: EdgeInsets.all(16.w),
         itemCount: ${snakeCase}s.length,
         itemBuilder: (context, index) {
-          final ${snakeCase} = ${snakeCase}s[index];
+          final $snakeCase = ${snakeCase}s[index];
           return Card(
             margin: EdgeInsets.only(bottom: 16.h),
             child: ListTile(
-              title: Text(${snakeCase}.name),
-              subtitle: ${snakeCase}.description != null ? Text(${snakeCase}.description!) : null,
+              title: Text($snakeCase.name),
+              subtitle: $snakeCase.description != null ? Text($snakeCase.description!) : null,
               onTap: () {
-                context.read<${pascalCase}Cubit>().load${pascalCase}(${snakeCase}.id);
+                context.read<${pascalCase}Cubit>().load$pascalCase($snakeCase.id);
               },
             ),
           );
@@ -4491,7 +4491,7 @@ class ${pascalCase}Page extends StatelessWidget {
     );
   }
   
-  Widget _build${pascalCase}Detail(BuildContext context, ${pascalCase}Entity ${snakeCase}) {
+  Widget _build${pascalCase}Detail(BuildContext context, ${pascalCase}Entity $snakeCase) {
     final l10n = AppLocalizations.of(context)!;
     
     return SingleChildScrollView(
@@ -4500,22 +4500,22 @@ class ${pascalCase}Page extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            ${snakeCase}.name,
+            $snakeCase.name,
             style: TextStyle(
               fontSize: 24.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
-          if (${snakeCase}.description != null) ...[
+          if ($snakeCase.description != null) ...[
             SizedBox(height: 16.h),
             Text(
-              ${snakeCase}.description!,
+              $snakeCase.description!,
               style: TextStyle(fontSize: 16.sp),
             ),
           ],
           SizedBox(height: 24.h),
           Text(
-            'Created: ${snakeCase}.createdAt.format()',
+            'Created: $snakeCase.createdAt.format()',
             style: TextStyle(
               fontSize: 14.sp,
               color: Colors.grey,
@@ -4523,7 +4523,7 @@ class ${pascalCase}Page extends StatelessWidget {
           ),
           SizedBox(height: 8.h),
           Text(
-            'Updated: ${snakeCase}.updatedAt.format()',
+            'Updated: $snakeCase.updatedAt.format()',
             style: TextStyle(
               fontSize: 14.sp,
               color: Colors.grey,
@@ -4547,7 +4547,7 @@ class ${pascalCase}Page extends StatelessWidget {
   // Widget
   final widgetFile = File('lib/features/$snakeCase/presentation/widgets/${snakeCase}_widget.dart');
   widgetFile.writeAsStringSync('''
-// 🎨 ${pascalCase} Widget
+// 🎨 $pascalCase Widget
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../domain/entities/${snakeCase}_entity.dart';
@@ -4601,7 +4601,7 @@ class ${pascalCase}Widget extends StatelessWidget {
   // Feature Injection
   final injectionFile = File('lib/features/$snakeCase/${snakeCase}_injection.dart');
   injectionFile.writeAsStringSync('''
-// 🔄 ${pascalCase} Feature Injection
+// 🔄 $pascalCase Feature Injection
 import 'package:get_it/get_it.dart';
 ${includeApi ? "import '../../core/network/api_client.dart';" : ""}
 ${includeStorage ? "import '../../core/services/storage_service.dart';" : ""}
@@ -4657,7 +4657,7 @@ Future<void> init${pascalCase}Feature() async {
   // Cubit
   getIt.registerFactory<${pascalCase}Cubit>(
     () => ${pascalCase}Cubit(
-      get${pascalCase}: getIt<Get${pascalCase}UseCase>(),
+      get$pascalCase: getIt<Get${pascalCase}UseCase>(),
       get${pascalCase}s: getIt<Get${pascalCase}sUseCase>(),
     ),
   );

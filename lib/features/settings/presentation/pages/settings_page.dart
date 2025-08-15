@@ -4,15 +4,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/l10n/language_cubit.dart';
+import '../../../../core/widgets/custom_text_field.dart';
 import '../cubit/settings_cubit.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/theme_cubit.dart';
 
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
   
   static const String routeName = '/settings';
-  
+
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -41,6 +47,26 @@ class SettingsPage extends StatelessWidget {
                 
                 _buildSectionTitle(context, 'About'),
                 _buildAboutCard(context),
+                SizedBox(height: 24.h),
+                // حقل بريد إلكتروني جاهز
+
+
+// حقل بحث مخصص
+CustomTextField(
+  hintText: 'البحث...',
+),
+
+// حقل متعدد الأسطر مع عداد
+CustomTextField(
+  labelText: 'الوصف',
+  maxLines: 5,
+),
+
+// حقل مخصص بالكامل
+CustomTextField(
+  labelText: 'حقل مخصص',
+  validator: (value) => value?.isEmpty == true ? 'مطلوب' : null,
+)
               ],
             );
           },
@@ -48,7 +74,7 @@ class SettingsPage extends StatelessWidget {
       ),
     );
   }
-  
+
   Widget _buildSectionTitle(BuildContext context, String title) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.h),
@@ -61,7 +87,7 @@ class SettingsPage extends StatelessWidget {
       ),
     );
   }
-  
+
     Widget _buildThemeOptions(BuildContext context, SettingsState state) {
     final l10n = AppLocalizations.of(context)!;
     
@@ -96,8 +122,7 @@ class SettingsPage extends StatelessWidget {
       ),
     );
   }
-  
-  
+
     Widget _buildLanguageOptions(BuildContext context, SettingsState state) {
     final l10n = AppLocalizations.of(context)!;
     
@@ -134,8 +159,7 @@ class SettingsPage extends StatelessWidget {
       ),
     );
   }
-  
-  
+
   Widget _buildAboutCard(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     

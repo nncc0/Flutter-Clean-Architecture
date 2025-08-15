@@ -3,7 +3,6 @@ class AppConstants {
   static const String baseUrl = 'https://api.example.com';
   static const Duration apiTimeout = Duration(seconds: 30);
   static const int defaultPageSize = 20;
-  static const List<String> supportedLocales = ['en', 'ar'];
   
   // Storage keys
   static const String accessTokenKey = 'access_token';

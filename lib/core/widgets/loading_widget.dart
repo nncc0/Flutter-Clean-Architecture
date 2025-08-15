@@ -8,8 +8,8 @@ class LoadingWidget extends StatelessWidget {
   const LoadingWidget({
     this.message,
     this.color,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   
   @override
   Widget build(BuildContext context) {

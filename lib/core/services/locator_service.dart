@@ -1,7 +1,6 @@
 // 📍 Service Locator
 import 'package:get_it/get_it.dart';
 import '../l10n/language_cubit.dart';
-import '../network/network_info.dart';
 import '../network/api_client.dart';
 import '../theme/theme_cubit.dart';
 import 'navigation_service.dart';
@@ -26,7 +25,7 @@ Future<void> setupLocator() async {
   //   ),
   // );
   
-  // getIt.registerLazySingleton<ApiClient>(() => ApiClient());
+   getIt.registerLazySingleton<ApiClient>(() => ApiClient());
   
 
   // Services

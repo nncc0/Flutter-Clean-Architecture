@@ -1,5 +1,7 @@
 // 🛣️ App Router
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/core/utils/extensions.dart';
+import 'package:flutter_application_2/core/widgets/custom_button.dart';
 import 'package:go_router/go_router.dart';
 import 'core/services/navigation_service.dart';
 import 'core/services/locator_service.dart';
@@ -18,26 +20,34 @@ class AppRouter {
             children: [
               const Text('Welcome to the Home Page'),
               const SizedBox(height: 20),
-              ElevatedButton(
+              CustomButton(
+                text: "sajsrhfjs",
                 onPressed: () {
-                  context.go('/auth');
+                  'hello world'.isValidEmail; // Example usage
                 },
-                child: const Text('Go to Auth Page'),
+
               ),
+              // زر بسيط
+CustomButton(
+  text: 'اضغط هنا',
+  onPressed: () {},
+),
+
+
+
               const SizedBox(height: 20),
-              ElevatedButton(
+              CustomButton(
+                text: 'Go to Settings',
                 onPressed: () {
-                  context.go('/settings');
+                  context.push('/settings');
                 },
-                child: const Text('Settings'),
+                
               ),
-         
-    ],
+            ],
           ),
         ),
       ),
-
-           GoRoute(
+      GoRoute(
         path: '/settings',
         builder: (context, state) => const SettingsPage(),
       ),

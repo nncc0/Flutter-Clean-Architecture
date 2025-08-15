@@ -10,8 +10,8 @@ class ErrorWidgetApp extends StatelessWidget {
     required this.message,
     this.onRetry,
     this.retryText,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   
   @override
   Widget build(BuildContext context) {

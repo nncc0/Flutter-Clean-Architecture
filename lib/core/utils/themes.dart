@@ -15,7 +15,6 @@ class AppThemes {
       primary: primaryColor,
       secondary: secondaryColor,
       error: errorColor,
-      background: Colors.white,
       surface: Colors.white,
     ),
     appBarTheme: const AppBarTheme(
@@ -52,7 +51,6 @@ class AppThemes {
       primary: primaryColor,
       secondary: secondaryColor,
       error: errorColor,
-      background: Colors.black,
       surface: Colors.grey[900]!,
     ),
     appBarTheme: AppBarTheme(
